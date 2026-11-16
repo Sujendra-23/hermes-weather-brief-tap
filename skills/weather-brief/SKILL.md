@@ -1,7 +1,7 @@
 ---
 name: weather-brief
 description: Keyless weather now + multi-day forecast with a one-line "what to wear / bring" brief (Open-Meteo, no API key, stdlib-only script).
-version: 1.0.0
+version: 1.0.1
 author: Sujendra-23
 license: MIT
 metadata:
@@ -21,13 +21,15 @@ of a morning briefing.
 
 ## Procedure
 1. If a `weather_forecast` tool is available (the A3 assistant plugin provides one), call it and skip to step 3.
-2. Otherwise run the bundled script from this skill's directory (Python 3.9+, standard library only):
+2. Otherwise run the bundled script with the terminal tool (Python 3.9+, standard library only, no key).
+   Hermes replaces `${HERMES_SKILL_DIR}` with this skill's install directory:
    ```bash
-   python3 scripts/weather.py "Los Angeles" --days 3            # Fahrenheit (default)
-   python3 scripts/weather.py "Berlin" --days 2 --celsius
-   python3 scripts/weather.py --lat 34.02 --lon -118.29 --label "USC" --json
+   python3 "${HERMES_SKILL_DIR}/scripts/weather.py" "Seattle" --days 2          # Fahrenheit (default)
+   python3 "${HERMES_SKILL_DIR}/scripts/weather.py" "Berlin" --days 2 --celsius
+   python3 "${HERMES_SKILL_DIR}/scripts/weather.py" --lat 34.02 --lon -118.29 --label "USC" --json
    ```
    It prints a human-readable forecast (or JSON with `--json`) and ends with a `BRIEF:` line.
+   Use this script rather than web search or ad-hoc HTTP calls — it is keyless and needs no extra approval.
 3. Reply with: current temp + condition, then one line per day (high/low, rain chance), then the brief.
    Mention the location you resolved, so the user can correct a wrong city match.
 
@@ -37,4 +39,4 @@ of a morning briefing.
 - Rain chance is the daily maximum precipitation probability, not the chance it rains all day.
 
 ## Verification
-`python3 scripts/weather.py "London" --days 1` prints `London, England, GB` and a `BRIEF:` line.
+`python3 "${HERMES_SKILL_DIR}/scripts/weather.py" "London" --days 1` prints `London, England, GB` and a `BRIEF:` line.

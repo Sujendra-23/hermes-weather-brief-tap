@@ -12,7 +12,7 @@ repository used as a Hermes skill tap).
 ```bash
 hermes skills tap add Sujendra-23/hermes-weather-brief-tap
 hermes skills search weather-brief
-hermes skills install weather-brief            # runs Hermes' normal install-time security scan
+hermes skills install Sujendra-23/hermes-weather-brief-tap/skills/weather-brief   # install-time security scan runs
 ```
 
 Then ask: *"What's the weather in Seattle for the next 3 days? Do I need an umbrella?"*
